@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Um Convite Especial ❤️</title>
+  
+  <!-- Favicon: Red Heart -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    /* Gradient Background & Floating Hearts */
+    body {
+      background: linear-gradient(135deg, #4a0404 0%, #8b0000 50%, #990033 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    .heart-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -10vh;
+      font-size: 1.5rem;
+      color: rgba(255, 182, 193, 0.4);
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-115vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 relative text-gray-800">
+
+  <!-- Fundo com Corações Flutuantes -->
+  <div class="heart-bg" id="heartContainer"></div>
+
+  <!-- Container Principal / Card Mobile-First -->
+  <main class="w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 relative z-10 border border-pink-100 my-auto">
+    
+    <!-- PÁGINA 1: CONVITE INICIAL -->
+    <div id="step-1" class="space-y-6">
+      <div class="text-center space-y-2">
+        <span class="text-4xl">💌</span>
+        <h1 class="text-2xl font-bold text-rose-900 leading-tight">Oi Natyelle! Você aceita o melhor date da sua vida com o Elder?</h1>
+      </div>
+
+      <!-- Bloco 1: Introdução Atualizada -->
+      <div class="bg-rose-50/80 p-4 rounded-2xl border border-rose-100 text-sm leading-relaxed text-rose-900 space-y-2">
+        <p><strong>Uma breve introdução:</strong> Eu tenho Ataxia Espinocerebelar do tipo 1 (SCA1). De forma bem resumida, isso afeta um pouco minha mobilidade física, coordenação motora e fala mais lenta, e posso precisar do seu ombro. Mas relaxa.. ao vivo sou bem mais legal do que qualquer explicação médica da internet! 😉</p>
+      </div>
+
+      <!-- Bloco 2: Escolha do Sushi -->
+      <div class="space-y-3">
+        <label class="block font-semibold text-gray-700 text-sm">
+          🍣 Nosso date será um sushi incrível às 20h! Escolha onde prefere ir:
+        </label>
+        
+        <div class="space-y-2">
+          <label class="flex items-center p-3 rounded-xl border-2 border-gray-100 cursor-pointer hover:border-rose-300 transition-all has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+            <input type="radio" name="restaurante" value="Unami Sushi" class="w-4 h-4 text-rose-600 focus:ring-rose-500">
+            <div class="ml-3">
+              <span class="block font-medium text-gray-900">Unami Sushi</span>
+              <a href="https://instagram.com/sushiumamibar" target="_blank" rel="noopener noreferrer" class="block text-xs text-rose-600 hover:underline font-medium">@sushiumamibar 🔗</a>
+            </div>
+          </label>
+
+          <label class="flex items-center p-3 rounded-xl border-2 border-gray-100 cursor-pointer hover:border-rose-300 transition-all has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+            <input type="radio" name="restaurante" value="Misaki Sushi" class="w-4 h-4 text-rose-600 focus:ring-rose-500">
+            <div class="ml-3">
+              <span class="block font-medium text-gray-900">Misaki Sushi</span>
+              <a href="https://instagram.com/misakirestaurante" target="_blank" rel="noopener noreferrer" class="block text-xs text-rose-600 hover:underline font-medium">@misakirestaurante 🔗</a>
+            </div>
+          </label>
+        </div>
+        <p id="error-restaurante" class="text-xs text-red-500 hidden">Por favor, selecione uma das opções de sushi acima para dizer Sim!</p>
+      </div>
+
+      <!-- Pergunta e Botões -->
+      <div class="space-y-4 pt-2">
+        <p class="text-center font-bold text-gray-800 text-base">E aí, vamos sair? ✨</p>
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="responderPresenca(false)" class="w-full py-3 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 active:scale-95 transition-all">
+            Não 😅
+          </button>
+          <button onclick="responderPresenca(true)" class="w-full py-3 rounded-xl font-semibold text-white bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200 active:scale-95 transition-all">
+            Sim! ❤️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA INTERMEDIÁRIA: SE SIM -->
+    <div id="step-1-sim" class="hidden space-y-6">
+      <div class="text-center space-y-2">
+        <span class="text-4xl">🚗✨</span>
+        <h2 class="text-xl font-bold text-rose-900">Perfeito!</h2>
+        <p class="text-sm text-gray-600">Passo pra te pegar às 20 horas e na volta te deixo em casa. Vamos de Uber!</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="input-endereco" class="block font-medium text-gray-700 text-sm">Qual endereço devo colocar no Uber para te buscar?</label>
+        <textarea id="input-endereco" rows="3" placeholder="Digite seu endereço completo aqui..." class="w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none text-sm resize-none"></textarea>
+        <p id="error-endereco" class="text-xs text-red-500 hidden">Por favor, digite seu endereço antes de prosseguir.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button onclick="voltarPara(1)" class="w-full py-3 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all">
+          ⬅️ Voltar
+        </button>
+        <button onclick="enviarEndereco()" class="w-full py-3 rounded-xl font-semibold text-white bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200 transition-all">
+          Próximo ➡️
+        </button>
+      </div>
+    </div>
+
+    <!-- TELA INTERMEDIÁRIA: SE NÃO -->
+    <div id="step-1-nao" class="hidden space-y-6 text-center">
+      <span class="text-4xl">🤪</span>
+      <h2 class="text-xl font-bold text-gray-800">Respeito sua opinião...</h2>
+      <p class="text-base font-semibold text-rose-600 bg-rose-50 p-4 rounded-2xl border border-rose-100">
+        ...mas é uma opinião burra! 😅✨
+      </p>
+
+      <div class="grid grid-cols-2 gap-3 pt-4">
+        <button onclick="voltarPara(1)" class="w-full py-3 rounded-xl font-semibold text-rose-700 bg-rose-100 hover:bg-rose-200 transition-all">
+          Mudar de ideia 🔄
+        </button>
+        <button onclick="concluirRecusa()" class="w-full py-3 rounded-xl font-semibold text-white bg-gray-700 hover:bg-gray-800 transition-all">
+          Concluir ✅
+        </button>
+      </div>
+    </div>
+
+    <!-- PÁGINA 2: ACORDO DOS BEIJOS -->
+    <div id="step-2" class="hidden space-y-6">
+      <div class="text-center space-y-2">
+        <span class="text-4xl">💋🔥</span>
+        <h2 class="text-xl font-bold text-rose-900">Aviso Importante! 🤫✨</h2>
+        <p class="text-sm text-gray-600">A taxa de serviço deste date inclui no mínimo 3 beijos se o clima esquentar. Você concorda com os termos?</p>
+      </div>
+
+      <div class="space-y-2">
+        <label class="flex items-center p-3 rounded-xl border-2 border-gray-100 cursor-pointer hover:border-rose-300 transition-all has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+          <input type="radio" name="beijos" value="Li e aceito os termos" class="w-4 h-4 text-rose-600 focus:ring-rose-500">
+          <span class="ml-3 font-medium text-sm text-gray-800">🔥 Li e aceito os termos</span>
+        </label>
+
+        <label class="flex items-center p-3 rounded-xl border-2 border-gray-100 cursor-pointer hover:border-rose-300 transition-all has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+          <input type="radio" name="beijos" value="Quero negociar a quantidade de beijos" class="w-4 h-4 text-rose-600 focus:ring-rose-500">
+          <span class="ml-3 font-medium text-sm text-gray-800">💋 Quero negociar a quantidade de beijos</span>
+        </label>
+
+        <label class="flex items-center p-3 rounded-xl border-2 border-gray-100 cursor-pointer hover:border-rose-300 transition-all has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+          <input type="radio" name="beijos" value="Vamos ver no que dá" class="w-4 h-4 text-rose-600 focus:ring-rose-500">
+          <span class="ml-3 font-medium text-sm text-gray-800">🙈 Vamos ver no que dá</span>
+        </label>
+      </div>
+      <p id="error-beijos" class="text-xs text-red-500 hidden">Escolha uma opção para continuar!</p>
+
+      <button onclick="enviarAcordoBeijos()" class="w-full py-3 rounded-xl font-semibold text-white bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200 transition-all">
+        Próximo ➡️
+      </button>
+    </div>
+
+    <!-- PÁGINA 3: PAUTA E CONFIRMAÇÃO -->
+    <div id="step-3" class="hidden space-y-6">
+      <div class="text-center space-y-1">
+        <span class="text-4xl">📝✨</span>
+        <h2 class="text-xl font-bold text-rose-900">Resumo do Nosso Date!</h2>
+      </div>
+
+      <!-- Resumo -->
+      <div class="bg-rose-50/70 p-4 rounded-2xl border border-rose-100 text-xs space-y-2">
+        <p><strong>🍣 Restaurante:</strong> <span id="resumo-restaurante" class="text-rose-900 font-medium">--</span></p>
+        <p><strong>🚗 Transporte:</strong> Uber às 20h</p>
+        <p><strong>📍 Endereço de busca:</strong> <span id="resumo-endereco" class="text-rose-900 font-medium">--</span></p>
+        <p><strong>💋 Acordo de beijos:</strong> <span id="resumo-beijos" class="text-rose-900 font-medium">--</span></p>
+      </div>
+
+      <!-- Pauta do Date -->
+      <div class="space-y-2">
+        <h3 class="font-bold text-gray-800 text-sm">📋 Pauta Oficial do Encontro:</h3>
+        <ul class="text-xs space-y-2 text-gray-600">
+          <li class="flex items-start">
+            <span class="mr-2">🗣️</span>
+            <span><strong>Fofocas:</strong> Falar do trabalho e das situações que aconteceram, eu explicarei como mudei de área.</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mr-2">🍣</span>
+            <span><strong>Gastronomia:</strong> Avaliação detalhada das peças do sushi.</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mr-2">☕</span>
+            <span><strong>Boas Conversas:</strong> Planos, hobbies e boas risadas sem pressa.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="text-center">
+        <p class="font-bold text-rose-600 text-sm">Mal posso esperar pelo nosso date! 💖</p>
+      </div>
+
+      <!-- 3 Botões na Página 3 com Símbolos -->
+      <div class="grid grid-cols-3 gap-2 pt-2">
+        <button onclick="voltarPara(2)" class="w-full py-2.5 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 text-xs transition-all">
+          ⬅️ Voltar
+        </button>
+        <button onclick="voltarPara(1)" class="w-full py-2.5 rounded-xl font-semibold text-rose-700 bg-rose-100 hover:bg-rose-200 text-xs transition-all">
+          🔄 Mudar
+        </button>
+        <button onclick="concluirSucesso()" class="w-full py-2.5 rounded-xl font-semibold text-white bg-rose-600 hover:bg-rose-700 shadow-md shadow-rose-200 text-xs transition-all">
+          Concluir ✅
+        </button>
+      </div>
+    </div>
+
+    <!-- PÁGINA FINAL DE RECUSA -->
+    <div id="step-final-recusa" class="hidden text-center space-y-4 py-4">
+      <span class="text-5xl">👋</span>
+      <h2 class="text-2xl font-bold text-gray-800">Até mais!</h2>
+      <p class="text-sm text-gray-500">Resposta enviada com sucesso. ✨</p>
+      <button onclick="recomencar()" class="w-full py-3 rounded-xl font-semibold text-rose-700 bg-rose-100 hover:bg-rose-200 transition-all mt-4">
+        Recomeçar 🔄
+      </button>
+    </div>
+
+    <!-- PÁGINA FINAL DE SUCESSO -->
+    <div id="step-final-sucesso" class="hidden text-center space-y-4 py-4">
+      <span class="text-5xl">💌</span>
+      <h2 class="text-2xl font-bold text-rose-900">Até amanhã, Natyelle!</h2>
+      <p class="text-sm text-gray-500">Sua resposta foi enviada com sucesso. ✨</p>
+      <button onclick="recomencar()" class="w-full py-3 rounded-xl font-semibold text-white bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200 transition-all mt-4">
+        Recomeçar 🔄
+      </button>
+    </div>
+
+  </main>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const API_ENDPOINT = 'https://sheetdb.io/api/v1/abedkkxelkngs';
+
+    let estadoApp = {
+      restaurante: 'N/A',
+      endereco: 'N/A',
+      acordoBeijos: 'N/A'
+    };
+
+    function getDataHoraAtual() {
+      const agora = new Date();
+      return agora.toLocaleString('pt-BR', { timeZone: 'America/Fortaleza' });
+    }
+
+    async function enviarSheetDB(payloadData) {
+      const payload = {
+        DataHora: getDataHoraAtual(),
+        Resposta: payloadData.resposta || 'N/A',
+        Restaurante: payloadData.restaurante || estadoApp.restaurante,
+        Endereco: payloadData.endereco || estadoApp.endereco,
+        AcordoBeijos: payloadData.acordoBeijos || estadoApp.acordoBeijos
+      };
+
+      try {
+        await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ data: [payload] })
+        });
+      } catch (error) {
+        console.error('Erro ao enviar dados para o SheetDB:', error);
+      }
+    }
+
+    function mostrarTela(idTela) {
+      const telas = ['step-1', 'step-1-sim', 'step-1-nao', 'step-2', 'step-3', 'step-final-recusa', 'step-final-sucesso'];
+      telas.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(idTela).classList.remove('hidden');
+    }
+
+    function responderPresenca(aceitou) {
+      const restauranteSelect = document.querySelector('input[name="restaurante"]:checked');
+      const errorMsg = document.getElementById('error-restaurante');
+
+      if (aceitou) {
+        if (!restauranteSelect) {
+          errorMsg.classList.remove('hidden');
+          return;
+        }
+        errorMsg.classList.add('hidden');
+        estadoApp.restaurante = restauranteSelect.value;
+        
+        enviarSheetDB({ resposta: 'Presenca: Sim', restaurante: estadoApp.restaurante });
+        mostrarTela('step-1-sim');
+      } else {
+        errorMsg.classList.add('hidden');
+        enviarSheetDB({ resposta: 'Presenca: Nao' });
+        mostrarTela('step-1-nao');
+      }
+    }
+
+    function enviarEndereco() {
+      const inputEndereco = document.getElementById('input-endereco').value.trim();
+      const errorMsg = document.getElementById('error-endereco');
+
+      if (!inputEndereco) {
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      errorMsg.classList.add('hidden');
+      estadoApp.endereco = inputEndereco;
+      
+      enviarSheetDB({ resposta: 'Endereco Informado', endereco: estadoApp.endereco });
+      mostrarTela('step-2');
+    }
+
+    function concluirRecusa() {
+      enviarSheetDB({ resposta: 'Recusado Final' });
+      mostrarTela('step-final-recusa');
+    }
+
+    function enviarAcordoBeijos() {
+      const beijoSelect = document.querySelector('input[name="beijos"]:checked');
+      const errorMsg = document.getElementById('error-beijos');
+
+      if (!beijoSelect) {
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      errorMsg.classList.add('hidden');
+      estadoApp.acordoBeijos = beijoSelect.value;
+
+      enviarSheetDB({ resposta: 'Acordo de Beijos Definido', acordoBeijos: estadoApp.acordoBeijos });
+
+      document.getElementById('resumo-restaurante').innerText = estadoApp.restaurante;
+      document.getElementById('resumo-endereco').innerText = estadoApp.endereco;
+      document.getElementById('resumo-beijos').innerText = estadoApp.acordoBeijos;
+
+      mostrarTela('step-3');
+    }
+
+    function concluirSucesso() {
+      enviarSheetDB({ resposta: 'Concluido: Date Aceito' });
+      mostrarTela('step-final-sucesso');
+    }
+
+    function voltarPara(etapa) {
+      if (etapa === 1) mostrarTela('step-1');
+      if (etapa === 2) mostrarTela('step-2');
+    }
+
+    function recomencar() {
+      estadoApp = { restaurante: 'N/A', endereco: 'N/A', acordoBeijos: 'N/A' };
+      document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+      document.getElementById('input-endereco').value = '';
+      mostrarTela('step-1');
+    }
+
+    function criarCoração() {
+      const container = document.getElementById('heartContainer');
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = ['❤️', '💖', '💕', '💗'][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+      heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+      
+      container.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+
+    setInterval(criarCoração, 600);
+  </script>
+</body>
+</html>
